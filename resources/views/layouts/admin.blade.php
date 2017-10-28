@@ -3,27 +3,18 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>layout 后台大布局 - Layui</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ config('app.name', '后台管理') }} __ @yield('title')</title>
     <link rel="stylesheet" href="{{ asset('layui/css/layui.css') }}">
+
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo">layui 后台布局</div>
+
+        <div class="layui-logo">今句后台管理</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
-        <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="">控制台</a></li>
-            <li class="layui-nav-item"><a href="">商品管理</a></li>
-            <li class="layui-nav-item"><a href="">用户</a></li>
-            <li class="layui-nav-item">
-                <a href="javascript:;">其它系统</a>
-                <dl class="layui-nav-child">
-                    <dd><a href="">邮件管理</a></dd>
-                    <dd><a href="">消息管理</a></dd>
-                    <dd><a href="">授权管理</a></dd>
-                </dl>
-            </li>
-        </ul>
+
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
@@ -43,14 +34,19 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-                <li class="layui-nav-item layui-nav-itemed">
+                <li class="layui-nav-item">
                     <a class="" href="javascript:;">句子管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="{{ route('passages.index', ['checked'=>1]) }}">已审核</a></dd>
+                        <dd><a href="{{ route('passages.index', ['checked'=>0]) }}">待审核</a></dd>
+
+                    </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;">人员管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">正常用户</a></dd>
-                        <dd><a href="javascript:;">冻结用户</a></dd>
+                        <dd><a href="{{ route('users.index', ['is_use' => 1]) }}">正常用户</a></dd>
+                        <dd><a href="{{ route('users.index', ['is_use' => 0]) }}">冻结用户</a></dd>
                         <dd><a href="">超链接</a></dd>
                     </dl>
                 </li>
@@ -62,7 +58,9 @@
 
     <div class="layui-body">
         <!-- 内容主体区域 -->
-        <div style="padding: 15px;">内容主体区域</div>
+
+        @yield('body')
+
     </div>
 
     <div class="layui-footer">
@@ -71,12 +69,24 @@
     </div>
 </div>
 <script src="{{ asset('layui/layui.js') }}"></script>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     //JavaScript代码区域
     layui.use('element', function(){
         var element = layui.element;
 
     });
 </script>
+
+
+    @stack('scripts')
+
+
 </body>
 </html>
