@@ -1,7 +1,7 @@
 @extends($admin_layout)
 
 
-@section('title', '句子管理')
+@section('title', '标签管理')
 
 @section('body')
     <table id="passages" lay-filter="test"></table>
@@ -11,8 +11,6 @@
         @else
         <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="del">删除</a>
         @endif
-
-
     </script>
 @endsection
 
@@ -27,13 +25,11 @@
             //展示已知数据
             table.render({
                 elem: '#passages'
-                , data: {!! $passages !!}
+                , data: {!! $labels !!}
                 , cols: [[ //标题栏
                     {checkbox: true, LAY_CHECKED: false} //默认全选
                     , {field: 'id', title: 'ID', sort: true}
                     , {field: 'content', title: '内容', width: 800}
-                    , {field: 'from', title: '出处', width: 300}
-                    , {field: 'labels_arr', title: '标签', width: 300}
                     , {field: 'author', sort: true, title: '作者', width: 150}
                     , {field: 'created_at', sort: true, title: '发布时间', width: 150}
                     , {fixed: 'right', width: 150, align: 'center', toolbar: '#barDemo'}
@@ -56,7 +52,7 @@
 
                     data._method = "PUT";
                     data.checked = '1';
-                    $.post('/passages/' + data.id, data, null, 'json').done(function (data) {
+                    $.post('/admin/labels/' + data.id, data, null, 'json').done(function (data) {
 
                         if (data.status == 'ok') {
                             obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
@@ -69,9 +65,9 @@
                     //do somehing
                 } else if (layEvent === 'del') { //删除
 
-                    layer.confirm('确定删除该条句子吗？', function (index) {
+                    layer.confirm('确定删除该条标签吗？', function (index) {
                         data._method = 'DELETE';
-                        $.post('/passages/' + data.id, data, null, 'json').done(function (data) {
+                        $.post('/admin/labels/' + data.id, data, null, 'json').done(function (data) {
                             if (data.status == 'ok') {
                                 obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
                                 layer.close(index);

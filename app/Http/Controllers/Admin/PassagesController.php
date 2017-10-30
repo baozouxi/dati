@@ -16,13 +16,20 @@ class PassagesController extends Controller
         if ($request->has('checked')) {
             $passages = $passages->where('checked', (int)$request->input('checked'));
         }
-        $passages = $passages->with('user')->get();
-        $passages->map(function($item){
+        $passages = $passages->with('user', 'labels')->get();
+
+        $passages->map(function ($item) {
             $item['author'] = $item->user->name;
+            $labels = [];
+            $item->labels()->each(function($lable) use (&$labels){
+                $labels[] = $lable->content;
+            });
+            $item['labels_arr'] = implode('、', $labels);
         });
+
+
         return view('admin.passage.list', compact('passages'));
     }
-
 
 
     public function update(Passage $passage, Request $request)

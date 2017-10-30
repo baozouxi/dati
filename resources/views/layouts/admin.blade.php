@@ -12,7 +12,7 @@
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
 
-        <div class="layui-logo">今句后台管理</div>
+        <div class="layui-logo">金句后台管理</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
 
         <ul class="layui-nav layui-layout-right">
@@ -43,7 +43,15 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;">人员管理</a>
+                    <a class="" href="javascript:;">标签管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="{{ route('labels.index', ['checked'=>1]) }}">已审核</a></dd>
+                        <dd><a href="{{ route('labels.index', ['checked'=>0]) }}">待审核</a></dd>
+
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">用户管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="{{ route('users.index', ['is_use' => 1]) }}">正常用户</a></dd>
                         <dd><a href="{{ route('users.index', ['is_use' => 0]) }}">冻结用户</a></dd>

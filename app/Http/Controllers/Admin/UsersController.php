@@ -17,6 +17,7 @@ class UsersController extends Controller
         if ($request->has('is_use')) {
             $users = $users->where('is_use', (int)$request->input('is_use'));
         }
+
         $users = $users->withCount(['passages'=>function($query){
                 $query->where('checked', '1');
         }])->get();

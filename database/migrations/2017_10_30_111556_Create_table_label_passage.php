@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLabelsTable extends Migration
+class CreateTableLabelPassage extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateLabelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('labels', function (Blueprint $table) {
+        Schema::create('label_passage', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
-            $table->string('content')->comment('标签内容');
-            $table->tinyInteger('checked')->default(0)->comment('是否审核');
-            $table->integer('user_id')->unsigned()->comment('创建人ID');
+            $table->integer('label_id')->unsigned();
+            $table->integer('passage_id')->unsigned();
         });
-        
     }
 
     /**
@@ -30,6 +27,6 @@ class CreateLabelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('labels');
+        Schema::dropIfExists('label_passage');
     }
 }

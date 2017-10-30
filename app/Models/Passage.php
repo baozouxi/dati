@@ -15,6 +15,12 @@ class Passage extends Model
     }
 
 
+    public function labels()
+    {
+        return $this->belongsToMany('App\Models\Label');
+    }
+
+
 
 }
 

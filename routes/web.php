@@ -20,8 +20,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-
-Route::group(['namespace'=>'Admin'], function(){
+//后台管理
+Route::group(['namespace'=>'Admin', 'prefix'=>'admin/'], function(){
     Route::resource('users', 'UsersController');
+    Route::resource('labels', 'LabelsController');
     Route::resource('passages', 'PassagesController');
 });

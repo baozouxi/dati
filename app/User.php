@@ -33,4 +33,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Passage');
     }
 
+
+    public function Labels()
+    {
+        return $this->hasMany('App\Models\Label');
+    }
+
 }
