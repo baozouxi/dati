@@ -1,77 +1,76 @@
-@extends('layouts.app')
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+    <meta name="keywords" content=""/>
+    <meta name="author" content=""/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <link rel="apple-touch-icon-precomposed" href="{{ asset('images/favicon.ico') }}">
+    <script>
+        var logined = 0
+    </script>
+    <title>今日句子</title>
+</head>
+<body>
 
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
 
-                <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('register') }}">
-                        {{ csrf_field() }}
+<div id="reg_index">
+    <div class="reg_bar">
+        <div class="wrap">
+            <span class="fl"><i></i>注册帐号</span>
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Register
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+            <div class="clear">
             </div>
         </div>
     </div>
+    <div class="wrap reg_ct">
+        <div class="pd10">
+            <form method="post" action="{{ route('register') }}">
+                <div class="login_b_i">
+                    <div class="login_input">
+                        <div class="login_user">
+                            <input type="email" name="email" required="required" value="{{ old('email') }}"
+                                   placeholder="邮箱（登录用）"><i></i>
+                        </div>
+                        {!! csrf_field() !!}
+                        <div class="login_user">
+                            <input type="text" name="name" required="required" value="{{ old('name') }}"
+                                   placeholder="昵称"><i></i>
+                        </div>
+
+
+                        <div class="login_password">
+                            <input type="password" name="password" required="required" placeholder="密码"><i></i>
+                        </div>
+                        <div class="login_password">
+                            <input type="password" name=" password_confirmation" required="required" placeholder="确认密码"><i></i>
+                        </div>
+                    </div>
+                </div>
+
+
+                @if($errors->any())
+                    <div class="alert alert-danger" role="alert">
+                        @foreach($errors->getBags() as $bag)
+                            @foreach($bag->all() as $item)
+                                <a href="#" class="alert-link">{{ $item }}</a><br>
+                            @endforeach
+                        @endforeach
+
+                    </div>
+                @endif
+                <button type="submit" class="reg_submit">注册</button>
+            </form>
+        </div>
+
+    </div>
 </div>
-@endsection
+</body>
+</html>

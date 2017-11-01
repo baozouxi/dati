@@ -15,7 +15,6 @@ class AddColumnsToUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->tinyInteger('is_use')->default('1')->comment('冻结标志');
-            $table->char('gender','4');
         });
     }
 
