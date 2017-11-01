@@ -4185,6 +4185,7 @@ i.sort_com {
 .list_info .span{
 	width: 100%;
 	overflow: hidden;
+	line-height:25px;
 }
 
 
@@ -4194,6 +4195,7 @@ i.sort_com {
 	color: #fff;
 	border-radius: 5px;
 	margin-right: 6px;
+
 
 }
 
