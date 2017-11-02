@@ -13,19 +13,23 @@
 
 
 
-Route::group(['namespace'=>'Home'], function(){
-    Route::get('/', 'IndexController@index');
-});
 
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/', 'IndexController@index');
 
-//后台管理
-Route::group(['namespace'=>'Admin', 'prefix'=>'admin/'], function(){
-    Route::resource('users', 'UsersController');
+Route::group(['middleware'=>'logincheck'], function(){
     Route::resource('labels', 'LabelsController');
     Route::resource('passages', 'PassagesController');
+    Route::post('/passages/{id}/favor', 'FavorsController@store');
 });
+
+
+//以下操作需要管理员权限 到时候添加一个管理员中间件
+
+Route::post('/passages/{id}/check', 'PassagesController@check');
+Route::post('/labels/{id}/check', 'LabelsController@check');
+Route::resource('users', 'UsersController');
+

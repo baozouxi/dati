@@ -52,7 +52,7 @@
 
                     data._method = "PUT";
                     data.checked = '1';
-                    $.post('/admin/labels/' + data.id, data, null, 'json').done(function (data) {
+                    $.post('/labels/' + data.id+'/check', null, null, 'json').done(function (data) {
 
                         if (data.status == 'ok') {
                             obj.del(); //删除对应行（tr）的DOM结构，并更新缓存

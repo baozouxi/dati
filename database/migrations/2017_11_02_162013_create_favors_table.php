@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColumnsToUsers extends Migration
+class CreateFavorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddColumnsToUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->tinyInteger('is_use')->default('1')->comment('冻结标志');
+        Schema::create('favors', function (Blueprint $table) {
+            $table->increments('id');
+            $table->timestamps();
+            $table->integer('passage_id')->unsigned()->comment('句子ID');
+            $table->integer('user_id')->unsigned()->comment('用户id');
         });
     }
 
@@ -25,8 +28,6 @@ class AddColumnsToUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('is_use');
-        });
+        Schema::dropIfExists('favors');
     }
 }

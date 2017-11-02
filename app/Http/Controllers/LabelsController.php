@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Label;
+use Illuminate\Support\Facades\Auth;
 
 class LabelsController extends Controller
 {
@@ -18,7 +19,7 @@ class LabelsController extends Controller
 
         $labels = $labels->with('user')->get();
 
-        $labels->map(function($item){
+        $labels->map(function ($item) {
             $item['author'] = $item->user->name;
         });
 
@@ -30,7 +31,7 @@ class LabelsController extends Controller
 
     public function update(Label $label, Request $request)
     {
-        $check = (int) $request->input('checked');
+        $check = (int)$request->input('checked');
 
         $label->checked = $check;
 
@@ -45,6 +46,32 @@ class LabelsController extends Controller
     }
 
 
+    public function create()
+    {
+        return view('label.create');
+    }
+
+
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'content' => 'required|string|',
+        ], [
+            'content.required' => '请输入标签'
+        ]);
+
+        $request['user_id'] = Auth::user()->id;
+
+        if (Label::create($request->all())) {
+            return view('check');
+        }
+
+        return '发布失败';
+
+
+    }
+
+
     public function destroy(Label $label)
     {
         $status = 'error';
@@ -52,6 +79,16 @@ class LabelsController extends Controller
             $status = 'ok';
         }
 
+        return json_encode(compact('status'));
+    }
+
+
+    public function check(int $id)
+    {
+        $status = 'error';
+        if ((new Label())->check($id)) {
+            $status = 'ok';
+        }
         return json_encode(compact('status'));
     }
 }

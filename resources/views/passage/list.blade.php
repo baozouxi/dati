@@ -34,7 +34,8 @@
                     , {field: 'content', title: '内容', width: 800}
                     , {field: 'from', title: '出处', width: 300}
                     , {field: 'labels_arr', title: '标签', width: 300}
-                    , {field: 'author', sort: true, title: '作者', width: 150}
+                    , {field: 'author', sort: true, title: '原作者', width: 150}
+                    , {field: 'user_name', sort: true, title: '发布者', width: 150}
                     , {field: 'created_at', sort: true, title: '发布时间', width: 150}
                     , {fixed: 'right', width: 150, align: 'center', toolbar: '#barDemo'}
                 ]]
@@ -56,7 +57,7 @@
 
                     data._method = "PUT";
                     data.checked = '1';
-                    $.post('/passages/' + data.id, data, null, 'json').done(function (data) {
+                    $.post('/passages/' + data.id + '/check', null, null, 'json').done(function (data) {
 
                         if (data.status == 'ok') {
                             obj.del(); //删除对应行（tr）的DOM结构，并更新缓存

@@ -1,0 +1,32 @@
+body{
+    background: rgb(217,217,217);
+}
+
+#form{
+    margin-top: 10px;
+    box-sizing: border-box;
+    padding: 0 5px;
+}
+
+.form-group span{
+    padding: 2px 5px;
+    background: rgb(255,90,1);
+    color: #fff;
+    border-radius: 5px;
+    margin-right: 6px;
+}
+
+.line_span{
+    line-height: 30px;
+}
+
+.submit_right{
+    float: right;
+    color:#fff;
+    background: #333;
+}
+
+
+span.disabled{
+    background: rgb(76,76,76);
+}

@@ -17,6 +17,7 @@ class CreatePassagesTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('from')->comment('句子出处');
+            $table->string('author')->comment('句子原作者');
             $table->text('content')->comment('句子内容');
             $table->integer('user_id')->unsigned()->comment('发布者id');
             $table->tinyInteger('checked')->default(0)->comment('审核标志');

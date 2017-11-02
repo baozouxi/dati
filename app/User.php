@@ -39,4 +39,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Label');
     }
 
+    public function favors()
+    {
+        return $this->hasMany('App\Models\Favor');
+    }
+
 }
