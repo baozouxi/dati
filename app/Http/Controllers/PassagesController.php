@@ -38,19 +38,25 @@ class PassagesController extends Controller
             return redirect('/');
         }
 
+        $passage = $passage->load(['comments', 'comments.user']);
+
         $liked = false; //是否点赞
 
-        $current_user_favors = Auth::user()->load(['favors'=>function($query) use($passage) {
-                $query->where('passage_id', '=', $passage->id);
-        }]);
 
-        if($current_user_favors->favors()->count() > 0)
-        {
-            $liked = true;
+        if (Auth::check()) {
+            $current_user_favors = Auth::user()->load([
+                'favors' => function ($query) use ($passage) {
+                    $query->where('passage_id', '=', $passage->id);
+                }
+            ]);
+
+            if (!$current_user_favors->favors->isEmpty()) {
+
+                $liked = true;
+            }
         }
 
-
-        return view('passage.show', compact('passage','liked'));
+        return view('passage.show', compact('passage', 'liked'));
 
     }
 
@@ -64,11 +70,11 @@ class PassagesController extends Controller
 
     public function store(Request $request)
     {
-
         $this->validate($request, [
             'content' => 'required',
             'author' => 'required',
             'from' => 'required',
+            'spans' => 'array|min:1'
         ], [
             'content.required' => '请输入金句内容',
             'author.required' => '请输入金句内容',
@@ -77,9 +83,28 @@ class PassagesController extends Controller
 
         $request['user_id'] = Auth::user()->id;
 
-        if (Passage::create($request->all())) {
+
+
+        if ( $passage =  Passage::create($request->all())) {
+
+            //添加标签模型关系
+            if($request->has('spans')){
+                //简单处理下 labelID
+                $temp_id_arr = [];
+                foreach ($request->spans as $span) {
+                    $temp_id_arr[] = Label::find($span);
+                }
+                $passage->labels()->saveMany($temp_id_arr);
+            }
+
+
             return view('check');
         }
+
+
+
+
+
 
         return '发布失败';
 

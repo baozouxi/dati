@@ -48,11 +48,12 @@
         </div>
 
         <div class="form-group line_span">
+            <label >标签：</label>
             @if($labels->isEmpty())
                 <span class="disabled">暂无标签</span>
             @else
                 @foreach($labels as $label)
-                    <span>{{ $label->content }}</span>
+                    <span data-id="{{ $label->id }}">{{ $label->content }}</span>
                 @endforeach
             @endif
         </div>
@@ -60,6 +61,37 @@
         <button type="submit" class="btn btn-default submit_right">发布</button>
     </form>
 </div>
+
+
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    $(function(){
+
+
+        $('.line_span span').click(function () {
+            var id = $(this).attr('data-id');
+
+            if($(this).hasClass('disabled')){
+                disabled($(this), id);
+                return;
+            }
+            $(this).addClass('disabled');
+
+            $('form').append('<input type="hidden" id="'+ id +'"  name="spans[]" value="'+ id +'" >');
+        });
+
+
+        function disabled(obj, id) {
+            $('#'+ id +'').remove()
+            obj.removeClass('disabled');
+        }
+
+
+
+    });
+</script>
+
 </body>
 
 </html>

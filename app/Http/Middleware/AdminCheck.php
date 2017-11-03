@@ -3,9 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
 
-class CheckLogin
+class AdminCheck
 {
     /**
      * Handle an incoming request.
@@ -16,9 +15,10 @@ class CheckLogin
      */
     public function handle($request, Closure $next)
     {
-        if (!Auth::check()  && ($request->route()->getActionMethod() != 'show' && ($request->route()->getActionMethod() != 'index' )) ) {
-            return redirect('/')->withErrors(['login'=> '请登录']);
+        if( (session('admin_id') == null) || !session('logind') ){
+            return redirect(route('loginView'));
         }
+
 
         return $next($request);
     }

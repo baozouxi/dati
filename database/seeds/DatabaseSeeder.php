@@ -12,9 +12,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Models\Passage::class, 20)->create();
+
+        \App\Models\Admin::create(
+            [
+                'name' => '管理员',
+                'email' => '253120625@qq.com',
+                'password' => sha1('123456')
+            ]
+        );
+
+        // factory(\App\Models\Passage::class, 20)->create();
 //        factory(\App\Models\Label::class, 20)->create();
         //factory(\App\User::class,50)->create();
-         //$this->call(UsersTableSeeder::class);
+        //$this->call(UsersTableSeeder::class);
     }
 }

@@ -19,14 +19,14 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                    贤心
+                    {{ session('admin_name') }}
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="">基本资料</a></dd>
                     <dd><a href="">安全设置</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item"><a href="">退了</a></li>
+            <li class="layui-nav-item"><a href="{{ route('logout') }}">退了</a></li>
         </ul>
     </div>
 
@@ -55,11 +55,9 @@
                     <dl class="layui-nav-child">
                         <dd><a href="{{ route('users.index', ['is_use' => 1]) }}">正常用户</a></dd>
                         <dd><a href="{{ route('users.index', ['is_use' => 0]) }}">冻结用户</a></dd>
-                        <dd><a href="">超链接</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href="">云市场</a></li>
-                <li class="layui-nav-item"><a href="">发布商品</a></li>
+
             </ul>
         </div>
     </div>

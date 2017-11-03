@@ -1,7 +1,10 @@
 $(function(){
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
+
+
+    $('td.add_newpost_post').click(function(){
+        $(this).parents('form').submit();
     });
+
+
+
 });

@@ -982,9 +982,10 @@
                 isReply = false;
                 reply_lock = true;
             } else {
-                $('#reg_index').addClass('show');
+               alert('请登录');
             }
         });
+
         $('.add_newpost_post').click(function () {
             if (reply_lock == true && isReply == true && $('.newpost_w_t textarea').val() != '') {
                 reply_lock = false;

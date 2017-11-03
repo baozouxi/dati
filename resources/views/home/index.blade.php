@@ -47,22 +47,22 @@
             </a></li>
         {{--@if(Auth::check())--}}
 
-            {{--<li class="nav_help"><a href="index.html"><i></i><span>我的句子</span><b></b>--}}
-                    {{--<div class="clear">--}}
-                    {{--</div>--}}
-                {{--</a>--}}
-            {{--</li>--}}
+        {{--<li class="nav_help"><a href="index.html"><i></i><span>我的句子</span><b></b>--}}
+        {{--<div class="clear">--}}
+        {{--</div>--}}
+        {{--</a>--}}
+        {{--</li>--}}
 
 
-            {{--<li class="nav_site"><a href="index.html"><i></i><span>我的收藏</span><b></b>--}}
-                    {{--<div class="clear">--}}
-                    {{--</div>--}}
-                {{--</a></li>--}}
-            {{--<li class="nav_help"><a href="index.html"><i></i><span>我的评论</span><b></b>--}}
-                    {{--<div class="clear">--}}
-                    {{--</div>--}}
-                {{--</a>--}}
-            {{--</li>--}}
+        {{--<li class="nav_site"><a href="index.html"><i></i><span>我的收藏</span><b></b>--}}
+        {{--<div class="clear">--}}
+        {{--</div>--}}
+        {{--</a></li>--}}
+        {{--<li class="nav_help"><a href="index.html"><i></i><span>我的评论</span><b></b>--}}
+        {{--<div class="clear">--}}
+        {{--</div>--}}
+        {{--</a>--}}
+        {{--</li>--}}
         {{--@endif--}}
 
 
@@ -112,13 +112,13 @@
                 </div>
                 <a class="login_submit">登录</a>
             </form>
-            <div class="login_quick">
-                <p>
-                    用第三方帐号直接登录
-                </p>
-                <a href="#" id="weibo_app"><span><i></i>微博帐号登录</span></a>
-                <a href="#" id="qq_connect"><span><i></i>QQ&nbsp;&nbsp;帐号登录</span></a>
-            </div>
+            {{--<div class="login_quick">--}}
+                {{--<p>--}}
+                    {{--用第三方帐号直接登录--}}
+                {{--</p>--}}
+                {{--<a href="#" id="weibo_app"><span><i></i>微博帐号登录</span></a>--}}
+                {{--<a href="#" id="qq_connect"><span><i></i>QQ&nbsp;&nbsp;帐号登录</span></a>--}}
+            {{--</div>--}}
         </div>
     @else
 
@@ -150,7 +150,7 @@
     </div>
 </div>
 <div id="container">
-    <div id="sort">
+{{--    <div id="sort">
         <table width="100%" border="0" cellspacing="0">
             <tr>
                 <td class="sort_left">
@@ -207,13 +207,13 @@
                 </td>
             </tr>
         </table>
-    </div>
+    </div>--}}
     <div id="content">
         <div id="list">
             <ul>
                 @if($passages->isEmpty())
                     <li>
-                        <div class="wrap center" >
+                        <div class="wrap center">
                             暂无句子，赶紧发布吧
                         </div>
 
@@ -225,94 +225,32 @@
                             <div class="wrap">
                                 <a class="alist" vhref="{{ route('passages.show', ['id'=>$passage->id]) }}">
                                     <div class="list_info">
-                                        <p class="book">《{{ $passage->user->name }}》-- {{ $passage->author }}</p>
-                                        <p class="span"><i>创业艰难</i><i>创业艰难</i><i>创业艰难</i></p>
+                                        <p class="book">《{{ $passage->from}}》-- {{ $passage->author }}</p>
+                                        <p class="span">
+
+                                            @if($passage->labels->isEmpty())
+                                                <i style="background: #000">暂无标签</i>
+                                            @else
+                                                @foreach($passage->labels as $label)
+                                                    <i>{{ $label->content }}</i>
+                                                @endforeach
+                                            @endif
+                                        </p>
                                         <p class="content">
-                                           {{ $passage->content }}</p>
+                                            {{ $passage->content }}</p>
                                     </div>
                                 </a>
                             </div>
                             <div class="clear"></div>
                             <div class="buttons">
-                                <span class="like iconfont">&#xe600;1231</span>
-                                <span class="collect iconfont">&#xe624;120</span>
+                                <span class="like iconfont">&#xe600;{{ $passage->favors_count }}</span>
+                                <span class="collect iconfont">&#xe624;{{ $passage->comments_count }}</span>
                                 <span class="copy iconfont">&#xe6ea;复制</span>
                             </div>
                         </li>
                     @endforeach
                 @endif
-                {{--<li>--}}
-                {{--<div class="wrap">--}}
-                {{--<a class="alist" vhref="zhengwen.html">--}}
-                {{--<div class="list_info">--}}
-                {{--<p class="book">《腾讯传》-- 吴晓波</p>--}}
-                {{--<p class="span"><i>创业艰难</i><i>创业艰难</i><i>创业艰难</i></p>--}}
-                {{--<p class="content">--}}
-                {{--“它之所以糟糕，不是因为技术上不成熟，而是它违背了一条非常简单却不被察觉的竞争原理：在一个缺乏成长性的产业里，任何创新都很难获得等值的回报，因为是没有意义的！”</p>--}}
-                {{--</div>--}}
-                {{--</a>--}}
-                {{--</div>--}}
-                {{--<div class="clear"></div>--}}
-                {{--<div class="buttons">--}}
-                {{--<span class="like iconfont">&#xe600;1231</span>--}}
-                {{--<span class="collect iconfont">&#xe624;120</span>--}}
-                {{--<span class="copy iconfont">&#xe6ea;复制</span>--}}
-                {{--</div>--}}
-                {{--</li>--}}
-                {{--<li>--}}
-                {{--<div class="wrap">--}}
-                {{--<a class="alist" vhref="zhengwen.html">--}}
-                {{--<div class="list_info">--}}
-                {{--<p class="book">《腾讯传》-- 吴晓波</p>--}}
-                {{--<p class="span"><i>创业艰难</i><i>创业艰难</i><i>创业艰难</i></p>--}}
-                {{--<p class="content">--}}
-                {{--“它之所以糟糕，不是因为技术上不成熟，而是它违背了一条非常简单却不被察觉的竞争原理：在一个缺乏成长性的产业里，任何创新都很难获得等值的回报，因为是没有意义的！”</p>--}}
-                {{--</div>--}}
-                {{--</a>--}}
-                {{--</div>--}}
-                {{--<div class="clear"></div>--}}
-                {{--<div class="buttons">--}}
-                {{--<span class="like iconfont">&#xe600;1231</span>--}}
-                {{--<span class="collect iconfont">&#xe624;120</span>--}}
-                {{--<span class="copy iconfont">&#xe6ea;复制</span>--}}
-                {{--</div>--}}
-                {{--</li>--}}
-                {{--<li>--}}
-                {{--<div class="wrap">--}}
-                {{--<a class="alist" vhref="zhengwen.html">--}}
-                {{--<div class="list_info">--}}
-                {{--<p class="book">《腾讯传》-- 吴晓波</p>--}}
-                {{--<p class="span"><i>创业艰难</i><i>创业艰难</i><i>创业艰难</i></p>--}}
-                {{--<p class="content">--}}
-                {{--“它之所以糟糕，不是因为技术上不成熟，而是它违背了一条非常简单却不被察觉的竞争原理：在一个缺乏成长性的产业里，任何创新都很难获得等值的回报，因为是没有意义的！”</p>--}}
-                {{--</div>--}}
-                {{--</a>--}}
-                {{--</div>--}}
-                {{--<div class="clear"></div>--}}
-                {{--<div class="buttons">--}}
-                {{--<span class="like iconfont">&#xe600;1231</span>--}}
-                {{--<span class="collect iconfont">&#xe624;120</span>--}}
-                {{--<span class="copy iconfont">&#xe6ea;复制</span>--}}
-                {{--</div>--}}
-                {{--</li>--}}
-                {{--<li>--}}
-                {{--<div class="wrap">--}}
-                {{--<a class="alist" vhref="zhengwen.html">--}}
-                {{--<div class="list_info">--}}
-                {{--<p class="book">《腾讯传》-- 吴晓波</p>--}}
-                {{--<p class="span"><i>创业艰难</i><i>创业艰难</i><i>创业艰难</i></p>--}}
-                {{--<p class="content">--}}
-                {{--“它之所以糟糕，不是因为技术上不成熟，而是它违背了一条非常简单却不被察觉的竞争原理：在一个缺乏成长性的产业里，任何创新都很难获得等值的回报，因为是没有意义的！”</p>--}}
-                {{--</div>--}}
-                {{--</a>--}}
-                {{--</div>--}}
-                {{--<div class="clear"></div>--}}
-                {{--<div class="buttons">--}}
-                {{--<span class="like iconfont">&#xe600;1231</span>--}}
-                {{--<span class="collect iconfont">&#xe624;120</span>--}}
-                {{--<span class="copy iconfont">&#xe6ea;复制</span>--}}
-                {{--</div>--}}
-                {{--</li>--}}
+
 
             </ul>
             <!--      <div class="list_loading">
